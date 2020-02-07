@@ -7,10 +7,21 @@ import logger from 'redux-logger';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createHistory as history } from 'history';
 
+import App from './components/app';
+
 import '../assets/stylesheets/application.scss';
+import costsReducer from './reducers/costs_reducer';
+import monthNameReducer from './reducers/month_name_reducer';
+
+const initialState = {
+  costs: [],
+  currentUser: `anonymous${Math.floor(10 + (Math.random() * 90))}`,
+};
 
 const reducers = combineReducers({
-  // key: reducer
+  costs: costsReducer,
+  monthName: monthNameReducer,
+  currentUser: initialState.currentUser,
 });
 
 const middlewares = applyMiddleware(reduxPromise, logger);
@@ -20,7 +31,7 @@ ReactDOM.render(
   <Provider store={createStore(reducers, {}, middlewares)}>
     <Router history={history}>
       <Switch>
-        TODO
+        <Route path="/costs/month/:month" component={App} />
       </Switch>
     </Router>
   </Provider>,
