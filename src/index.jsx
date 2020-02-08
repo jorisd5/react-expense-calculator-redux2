@@ -11,22 +11,30 @@ import App from './components/app';
 
 import '../assets/stylesheets/application.scss';
 import costsMonthReducer from './reducers/costs_month_reducer';
-import monthNameReducer from './reducers/month_name_reducer';
-import monthNumberReducer from './reducers/month_number_reducer';
 
-const currentDate = new Date();
-const numberOfMonth = currentDate.getMonth() + 1;
+const numberOfMonth = (new Date()).getMonth() + 1;
+
+const monthName = (language, monthNumber) => {
+  const d = new Date(2020, monthNumber);
+  const options = { month: 'long' };
+  return new Intl.DateTimeFormat(language, options).format(d);
+};
+
+const monthNamesArray = () => {
+  const monthsArray = [];
+  Array.from(Array(12).keys()).forEach(month => monthsArray.push(monthName('en-US', month)));
+  return monthsArray;
+};
 
 const initialState = {
-  currentMonthNumber: numberOfMonth,
+  monthNames: monthNamesArray,
   costs: [],
   currentUser: `anonymous${Math.floor(10 + (Math.random() * 90))}`,
 };
 
 const reducers = combineReducers({
+  monthNames: initialState.monthNames,
   costsMonth: costsMonthReducer,
-  monthNumber: monthNumberReducer,
-  monthName: monthNameReducer,
   currentUser: initialState.currentUser,
 });
 
@@ -38,7 +46,7 @@ ReactDOM.render(
     <Router history={history}>
       <Switch>
         <Route path="/costs/month/:month" component={App} />
-        <Redirect from="/" to="/costs/month/2" />
+        <Redirect from="/" to={{ pathname: `costs/month/${numberOfMonth}` }} />
       </Switch>
     </Router>
   </Provider>,

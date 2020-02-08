@@ -30,7 +30,7 @@ class CostsIndex extends Component {
           <Link to="/costs/new">
             <i className="fas fa-arrow-left" />
           </Link>
-          <h2>Test_Month</h2>
+          <h2>{this.props.monthNames[(this.props.monthFromUrl) - 1]}</h2>
           <Link to="/costs/new">
             <i className="fas fa-arrow-right" />
           </Link>
@@ -47,8 +47,7 @@ class CostsIndex extends Component {
 function mapStateToProps(state, ownProps) {
   return {
     costsMonth: state.costsMonth,
-    monthNumber: state.monthNumber,
-    monthName: state.monthName,
+    monthNames: state.monthNames,
     monthFromUrl: parseInt(ownProps.monthFromParams, 10)
   };
 }
