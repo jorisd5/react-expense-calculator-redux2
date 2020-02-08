@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 import { createHistory as history } from 'history';
 
 import App from './components/app';
+import CostsShow from './containers/costs_show';
 
 import '../assets/stylesheets/application.scss';
 import costsMonthReducer from './reducers/costs_month_reducer';
@@ -46,6 +47,7 @@ ReactDOM.render(
     <Router history={history}>
       <Switch>
         <Route path="/costs/month/:month" component={App} />
+        <Route path="/costs/:id" component={CostsShow} />
         <Redirect from="/" to={{ pathname: `costs/month/${numberOfMonth}` }} />
       </Switch>
     </Router>
