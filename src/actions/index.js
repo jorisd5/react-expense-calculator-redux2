@@ -1,23 +1,34 @@
-export const FETCH_COSTS = 'FETCH_COSTS';
+export const FETCH_COSTS_MONTH = 'FETCH_COSTS_MONTH';
 export const MONTH_NAME = 'MONTH_NAME';
+export const MONTH_NUMBER = 'MONTH_NUMBER';
 
-export function monthName() {
-  const currentDate = Date.now();
-  const options = { month: 'long' };
-  const month = new Intl.DateTimeFormat('en-US', options).format(currentDate);
+const currentDate = new Date();
+const numberOfMonth = currentDate.getMonth();
+console.log(numberOfMonth);
 
+export function monthNumber() {
   return {
-    type: MONTH_NAME,
-    payload: month
+    type: MONTH_NUMBER,
+    payload: numberOfMonth
   };
 }
 
-export function fetchCosts() {
+export function monthName() {
+  const options = { month: 'long' };
+  const nameOfMonth = new Intl.DateTimeFormat('en-US', options).format(currentDate);
+
+  return {
+    type: MONTH_NAME,
+    payload: nameOfMonth
+  };
+}
+
+export function fetchCostsMonth(month) {
   // AJAX call to API
-  const promise = fetch("http://localhost:3000/costs/").then(response => response.json());
+  const promise = fetch(`http://localhost:3000/costs/month/${month}`).then(response => response.json());
   console.log(promise);
   return {
-    type: FETCH_COSTS,
+    type: FETCH_COSTS_MONTH,
     payload: promise
   };
 }

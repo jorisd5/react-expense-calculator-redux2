@@ -1,4 +1,57 @@
-.app {
-  margin-top: 20px;
-  margin-bottom: 20px;
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:100,300|Yeseva+One');
+
+body {
+  background-color: #F4F4F4;
+  font-family: 'Open Sans';
+}
+
+.thin-container {
+  margin: 0 auto;
+  width: 60vw;
+}
+
+h3 {
+  // margin-top: 0;
+  // font-family: 'Yeseva One';
+  width: fit-content;
+}
+
+.first-row {
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+  border-bottom: 2px solid black;
+}
+
+.btn {
+  border-radius: 0px;
+}
+
+.btn-expense {
+  background-color: black;
+  padding: 10px;
+  color: white;
+  transition: transform .2s;
+}
+
+.cost-item {
+  background-color: white;
+  padding: 20px;
+  margin: 9px 0;
+  color: black;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+  h3 {
+    font-size: xlarge;
+    font-style: bold;
+    transition: transform .2s;
+  }
+  h3:hover {
+    transform: scale(1.05);
+  }
+}
+
+a:hover {
+  text-decoration: none;
+  color: white;
+  transform: scale(1.05);
 }

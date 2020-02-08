@@ -2,15 +2,24 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchCosts } from '../actions/index';
+import { fetchCostsMonth } from '../actions/index';
 
 class CostsIndex extends Component {
   componentWillMount() {
-    console.log(this.props.monthFromUrl);
+    this.props.fetchCostsMonth(this.props.monthFromUrl);
   }
 
-  renderCosts() {
-
+  renderCosts = () => {
+    return this.props.costsMonth.map((cost) => {
+      return (
+        <Link to={`/costs/${cost.id}`} key={cost.id}>
+          <div className="cost-item">
+            <h3>{cost.description}</h3>
+            <p>Total this month: {cost.amount} €</p>
+          </div>
+        </Link>
+      );
+    });
   }
 
   render() {
@@ -37,14 +46,15 @@ class CostsIndex extends Component {
 
 function mapStateToProps(state, ownProps) {
   return {
-    costs: state.costs,
+    costsMonth: state.costsMonth,
+    monthNumber: state.monthNumber,
     monthName: state.monthName,
     monthFromUrl: parseInt(ownProps.monthFromParams, 10)
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchCosts }, dispatch);
+  return bindActionCreators({ fetchCostsMonth }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CostsIndex);

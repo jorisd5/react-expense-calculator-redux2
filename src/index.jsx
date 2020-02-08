@@ -4,22 +4,28 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import reduxPromise from 'redux-promise';
 import logger from 'redux-logger';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import { createHistory as history } from 'history';
 
 import App from './components/app';
 
 import '../assets/stylesheets/application.scss';
-import costsReducer from './reducers/costs_reducer';
+import costsMonthReducer from './reducers/costs_month_reducer';
 import monthNameReducer from './reducers/month_name_reducer';
+import monthNumberReducer from './reducers/month_number_reducer';
+
+const currentDate = new Date();
+const numberOfMonth = currentDate.getMonth() + 1;
 
 const initialState = {
+  currentMonthNumber: numberOfMonth,
   costs: [],
   currentUser: `anonymous${Math.floor(10 + (Math.random() * 90))}`,
 };
 
 const reducers = combineReducers({
-  costs: costsReducer,
+  costsMonth: costsMonthReducer,
+  monthNumber: monthNumberReducer,
   monthName: monthNameReducer,
   currentUser: initialState.currentUser,
 });
@@ -32,6 +38,7 @@ ReactDOM.render(
     <Router history={history}>
       <Switch>
         <Route path="/costs/month/:month" component={App} />
+        <Redirect from="/" to="/costs/month/2" />
       </Switch>
     </Router>
   </Provider>,

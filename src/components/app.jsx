@@ -4,7 +4,9 @@ import CostsIndex from '../containers/costs_index';
 const App = (props) => {
   console.log('App reached!');
   return (
-    <CostsIndex monthFromParams={props.match.params.month} />
+    <div className="thin-container">
+      <CostsIndex monthFromParams={props.match.params.month} />
+    </div>
   );
 };
 
