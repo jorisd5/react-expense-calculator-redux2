@@ -12,6 +12,7 @@ import CostsShow from './containers/costs_show';
 
 import '../assets/stylesheets/application.scss';
 import costsMonthReducer from './reducers/costs_month_reducer';
+import costReducer from './reducers/cost_reducer';
 
 const numberOfMonth = (new Date()).getMonth() + 1;
 
@@ -35,6 +36,7 @@ const initialState = {
 
 const reducers = combineReducers({
   monthNames: initialState.monthNames,
+  costFromDb: costReducer,
   costsMonth: costsMonthReducer,
   currentUser: initialState.currentUser,
 });
