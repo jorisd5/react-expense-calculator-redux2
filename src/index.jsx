@@ -15,6 +15,8 @@ import costsMonthReducer from './reducers/costs_month_reducer';
 import costReducer from './reducers/cost_reducer';
 
 const numberOfMonth = (new Date()).getMonth() + 1;
+// TODO: can languageLocal only be defined in initialState ?
+const languageLocale = 'nl-BE';
 
 const monthName = (language, monthNumber) => {
   const d = new Date(2020, monthNumber);
@@ -24,7 +26,8 @@ const monthName = (language, monthNumber) => {
 
 const monthNamesArray = () => {
   const monthsArray = [];
-  Array.from(Array(12).keys()).forEach(month => monthsArray.push(monthName('en-US', month)));
+  Array.from(Array(12).keys()).forEach(month =>
+    monthsArray.push(monthName(languageLocale, month)));
   return monthsArray;
 };
 
@@ -32,9 +35,11 @@ const initialState = {
   monthNames: monthNamesArray,
   costs: [],
   currentUser: `anonymous${Math.floor(10 + (Math.random() * 90))}`,
+  languageLocale,
 };
 
 const reducers = combineReducers({
+  languageLocale: initialState.languageLocale,
   monthNames: initialState.monthNames,
   costFromDb: costReducer,
   costsMonth: costsMonthReducer,
