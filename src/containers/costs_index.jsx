@@ -9,6 +9,10 @@ class CostsIndex extends Component {
     this.props.fetchCostsMonth(this.props.monthFromUrl);
   }
 
+  handleClick() {
+    this.props.fetchCostsMonth(parseInt(this.props.monthFromParams, 10));
+  }
+
   renderCosts = () => {
     return this.props.costsMonth.map((cost) => {
       return (
@@ -27,11 +31,19 @@ class CostsIndex extends Component {
       <div>
         <div className="first-row">
           <h3>Costs</h3>
-          <Link to="/costs/new">
+          <Link
+            from="/"
+            to={{ pathname: `/costs/month/${this.props.monthFromUrl - 1}` }}
+            onClick={this.handleClick}
+          >
             <i className="fas fa-arrow-left" />
           </Link>
           <h2>{this.props.monthNames[(this.props.monthFromUrl) - 1]}</h2>
-          <Link to="/costs/new">
+          <Link
+            from="/"
+            to={{ pathname: `/costs/month/${this.props.monthFromUrl + 1}` }}
+            onClick={this.handleClick}
+          >
             <i className="fas fa-arrow-right" />
           </Link>
           <Link className="btn-expense" to="/costs/new">

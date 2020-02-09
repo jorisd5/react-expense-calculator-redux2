@@ -9,6 +9,11 @@ class CostsShow extends Component {
     if (!this.props.cost) {
       this.props.fetchCost(this.props.match.params.id);
     }
+    console.log("Mount cost");
+  }
+
+  handleClick() {
+    this.props.fetchCost(this.props.match.params.id);
   }
 
   renderForm(cost) {
@@ -54,8 +59,11 @@ class CostsShow extends Component {
 
   render() {
     let cost = this.props.cost;
+    console.log("Cost from cost (Array from state)");
+    console.log(this.props.id);
     if (!cost) {
       cost = this.props.costFromDb;
+      console.log("Cost from State-DB");
       if (!cost) {
         return (<p>No cost found.</p>);
       }
@@ -64,11 +72,19 @@ class CostsShow extends Component {
       <div className="thin-container">
         <div className="first-row">
           <h3>Costs</h3>
-          <Link to="/costs/new">
+          <Link
+            from="/"
+            to={{ pathname: `/costs/${parseInt(this.props.match.params.id, 10) - 1}` }}
+            onClick={this.handleClick}
+          >
             <i className="fas fa-arrow-left" />
           </Link>
           <h2>{cost.description}</h2>
-          <Link to="/costs/new">
+          <Link
+            from="/"
+            to={{ pathname: `/costs/${parseInt(this.props.match.params.id, 10) + 1}` }}
+            onClick={this.handleClick}
+          >
             <i className="fas fa-arrow-right" />
           </Link>
           <Link className="btn-expense" to="/">
