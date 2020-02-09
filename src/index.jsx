@@ -6,9 +6,11 @@ import reduxPromise from 'redux-promise';
 import logger from 'redux-logger';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import { createHistory as history } from 'history';
+import { reducer as formReducer } from 'redux-form';
 
 import App from './components/app';
 import CostsShow from './containers/costs_show';
+import CostsNew from './containers/costs_new';
 
 import '../assets/stylesheets/application.scss';
 import costsMonthReducer from './reducers/costs_month_reducer';
@@ -44,6 +46,7 @@ const reducers = combineReducers({
   costFromDb: costReducer,
   costsMonth: costsMonthReducer,
   currentUser: initialState.currentUser,
+  form: formReducer
 });
 
 const middlewares = applyMiddleware(reduxPromise, logger);
@@ -53,8 +56,9 @@ ReactDOM.render(
   <Provider store={createStore(reducers, {}, middlewares)}>
     <Router history={history}>
       <Switch>
-        <Route path="/costs/month/:month" component={App} />
+        <Route path="costs/new" exact component={CostsNew} />
         <Route path="/costs/:id" component={CostsShow} />
+        <Route path="/costs/month/:month" component={App} />
         <Redirect from="/" to={{ pathname: `costs/month/${numberOfMonth}` }} />
       </Switch>
     </Router>
