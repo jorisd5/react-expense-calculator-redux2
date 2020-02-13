@@ -5,15 +5,17 @@ import { Link } from 'react-router-dom';
 import { fetchCost } from '../actions/index';
 
 class CostsShow extends Component {
-  componentWillMount() {
+  componentDidMount() {
     if (!this.props.cost) {
       this.props.fetchCost(this.props.match.params.id);
     }
     console.log("Mount cost");
   }
 
-  handleClick() {
-    this.props.fetchCost(this.props.match.params.id);
+  handleClick(costId) {
+    if (!this.props.cost) {
+      this.props.fetchCost(costId);
+    }
   }
 
   renderForm(cost) {
@@ -24,29 +26,29 @@ class CostsShow extends Component {
       <form>
         <div className="form-group">
           <label>Amount:</label>
-          <input type="text" className="form-control" id="description" value={cost.amount}  disabled="true" />
+          <input type="text" className="form-control" id="description" value={cost.amount} disabled />
         </div>
         <div className="form-group">
           <label>Source:</label>
-          <input type="text" className="form-control" id="description" value={cost.source}  disabled="true" />
+          <input type="text" className="form-control" id="description" value={cost.source} disabled />
         </div>
         <div className="form-group">
           <label>Id:</label>
-          <input type="text" className="form-control" id="description" value={cost.id}  disabled="true" />
+          <input type="text" className="form-control" id="description" value={cost.id} disabled />
         </div>
         <div className="form-group">
           <label>Registration time:</label>
-          <input type="text" className="form-control" id="description" value={creationDate.toLocaleString(this.props.languageLocale)}  disabled="true" />
+          <input type="text" className="form-control" id="description" value={creationDate.toLocaleString(this.props.languageLocale)} disabled />
         </div>
         <div className="form-group">
           <label>Type:</label>
           <div className="clear"></div>
           <div className="form-check form-check-inline">
-            <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Private" checked={privateCost} />
+            <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Private" checked={privateCost} readOnly />
             <label className="form-check-label" htmlFor="inlineRadio1">Private</label>
           </div>
           <div className="form-check form-check-inline">
-            <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Professional" checked={professionalCost} />
+            <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Professional" checked={professionalCost} readOnly />
             <label className="form-check-label" htmlFor="inlineRadio2">Professional</label>
           </div>
         </div>
@@ -75,7 +77,7 @@ class CostsShow extends Component {
           <Link
             from="/"
             to={{ pathname: `/costs/${parseInt(this.props.match.params.id, 10) - 1}` }}
-            onClick={this.handleClick}
+            onClick={this.handleClick(this.props.match.params.id)}
           >
             <i className="fas fa-arrow-left" />
           </Link>
@@ -83,7 +85,7 @@ class CostsShow extends Component {
           <Link
             from="/"
             to={{ pathname: `/costs/${parseInt(this.props.match.params.id, 10) + 1}` }}
-            onClick={this.handleClick}
+            onClick={this.handleClick(this.props.match.params.id)}
           >
             <i className="fas fa-arrow-right" />
           </Link>

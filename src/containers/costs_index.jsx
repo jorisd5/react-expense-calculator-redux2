@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { fetchCostsMonth } from '../actions/index';
 
 class CostsIndex extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchCostsMonth(this.props.monthFromUrl);
   }
 

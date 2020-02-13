@@ -57,8 +57,8 @@ ReactDOM.render(
     <Router history={history}>
       <Switch>
         <Route path="costs/new" exact component={CostsNew} />
-        <Route path="/costs/:id" component={CostsShow} />
         <Route path="/costs/month/:month" component={App} />
+        <Route path="/costs/:id" component={CostsShow} />
         <Redirect from="/" to={{ pathname: `costs/month/${numberOfMonth}` }} />
       </Switch>
     </Router>
