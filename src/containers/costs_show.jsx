@@ -7,9 +7,19 @@ import { fetchCost } from '../actions/index';
 class CostsShow extends Component {
   componentDidMount() {
     if (!this.props.cost) {
-      this.props.fetchCost(this.props.match.params.id);
+      this.fetchCostFunction();
     }
-    console.log("Mount cost");
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log(nextState);
+    console.log(nextProps);
+    console.log(this.props.costFromDb);
+    return (this.props.costFromDb[0].id !== nextProps.costFromDb[0].id);
+  }
+
+  fetchCostFunction() {
+    return this.props.fetchCost(this.props.match.params.id);
   }
 
   handleClick(costId) {
